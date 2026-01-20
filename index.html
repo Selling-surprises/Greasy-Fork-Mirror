@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Greasy Fork镜像网站</title>
+    <link rel="icon" href="https://gitee.com/selling-surprises/Greasyfork-Script-repository/raw/main/%E5%AE%9E%E7%94%A8%E8%84%9A%E6%9C%AC/Greasy%20Fork%E8%84%9A%E6%9C%AC%E6%90%9C%E7%B4%A2%E5%8A%A9%E6%89%8B/Greasy%20Fork-icon.png" type="image/png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Microsoft YaHei', '微软雅黑', Arial, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        body {
+            background: url('img/default-bg.jpg') no-repeat center center fixed;
+            background-size: cover;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            touch-action: manipulation;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 600px;
+            padding: 20px;
+        }
+        
+        .card {
+            background-color: rgba(255, 255, 255, 0.85);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+        
+        .logo {
+            margin-bottom: 20px;
+        }
+        
+        .logo img {
+            width: 100px;
+            height: 100px;
+            object-fit: contain;
+            border-radius: 10px;
+        }
+        
+        .title {
+            font-size: 2.5rem;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1rem;
+            color: #666;
+            margin-bottom: 25px;
+        }
+        
+        .buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 30px;
+            max-height: 300px;
+            overflow-y: auto;
+            padding-right: 5px;
+        }
+        
+        .buttons::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .buttons::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.05);
+            border-radius: 4px;
+        }
+
+        .buttons::-webkit-scrollbar-thumb {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 4px;
+        }
+
+        .buttons::-webkit-scrollbar-thumb:hover {
+            background: rgba(0, 0, 0, 0.3);
+        }
+        
+        .bookmark-btn {
+            background: linear-gradient(135deg, #2196F3, #0D47A1);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 20px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 50px;
+        }
+        
+        .bookmark-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .bookmark-btn:active {
+            transform: translateY(-1px);
+        }
+        
+        .special-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+            justify-content: center;
+            max-height: 120px; /* 限制为两排高度 */
+            overflow: hidden; /* 隐藏超出部分 */
+        }
+        
+        .special-btn {
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .special-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .special-btn:active {
+            transform: translateY(-1px);
+        }
+        
+        .explanation {
+            border-top: 1px solid #ddd;
+            padding-top: 20px;
+            color: #777;
+        }
+        
+        .explanation h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: #555;
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+                /* 移动端使用移动端背景图片 */
+                background-image: url('img/default-bg-phone.jpg');
+                background-size: cover;
+                background-position: center;
+                background-attachment: scroll; /* 移动端不使用fixed，提高性能 */
+            }
+            
+            .container {
+                padding: 10px;
+            }
+            
+            .card {
+                padding: 20px;
+                border-radius: 12px;
+            }
+            
+            .logo img {
+                width: 80px;
+                height: 80px;
+            }
+            
+            .title {
+                font-size: 2rem;
+            }
+            
+            .buttons {
+                max-height: 250px;
+                gap: 12px;
+            }
+            
+            .bookmark-btn {
+                padding: 15px 20px;
+                font-size: 1.1rem;
+                min-height: 54px;
+            }
+            
+            .special-buttons {
+                max-height: 100px; /* 移动端两排高度 */
+                gap: 8px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .title {
+                font-size: 1.8rem;
+            }
+            
+            .subtitle {
+                font-size: 0.9rem;
+            }
+            
+            .bookmark-btn {
+                padding: 12px 15px;
+                font-size: 1rem;
+            }
+            
+            .buttons {
+                max-height: 200px;
+            }
+            
+            .special-buttons {
+                max-height: 90px; /* 移动端小屏幕两排高度 */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="logo">
+                <img src="https://gitee.com/selling-surprises/Greasyfork-Script-repository/raw/main/%E5%AE%9E%E7%94%A8%E8%84%9A%E6%9C%AC/Greasy%20Fork%E8%84%9A%E6%9C%AC%E6%90%9C%E7%B4%A2%E5%8A%A9%E6%89%8B/Greasy%20Fork-icon.png" alt="Logo">
+            </div>
+            <h1 class="title">出发</h1>
+            <p class="subtitle">请点击下方按钮进行跳转Greasy Fork镜像网站：</p>
+            
+            <div class="buttons">
+                
+                    <button class="bookmark-btn" onclick="window.open('https://gitee.com/selling-surprises/Greasyfork-Script-repository/raw/main/%E5%AE%9E%E7%94%A8%E8%84%9A%E6%9C%AC/Greasy%20Fork%E8%84%9A%E6%9C%AC%E6%90%9C%E7%B4%A2%E5%8A%A9%E6%89%8B/Greasy%20Fork%E8%84%9A%E6%9C%AC%E6%90%9C%E7%B4%A2%E5%8A%A9%E6%89%8B-%E7%94%B5%E8%84%91%E7%AB%AF.user.js', '_blank')">
+                        <span>【推荐】Greasy Fork脚本搜索助手-电脑端</span>
+                    </button>
+                
+                    <button class="bookmark-btn" onclick="window.open('https://gitee.com/selling-surprises/Greasyfork-Script-repository/raw/main/%E5%AE%9E%E7%94%A8%E8%84%9A%E6%9C%AC/Greasy%20Fork%E8%84%9A%E6%9C%AC%E6%90%9C%E7%B4%A2%E5%8A%A9%E6%89%8B/Greasy%20Fork%E8%84%9A%E6%9C%AC%E6%90%9C%E7%B4%A2%E5%8A%A9%E6%89%8B-%E7%A7%BB%E5%8A%A8%E7%AB%AF.user.js', '_blank')">
+                        <span>【推荐】Greasy Fork脚本搜索助手-移动端</span>
+                    </button>
+                
+                    <button class="bookmark-btn" onclick="window.open('https://soujiaoben.org/#/pages/list/list', '_blank')">
+                        <span>搜脚本加速站</span>
+                    </button>
+                
+                    <button class="bookmark-btn" onclick="window.open('https://scriptcat.org/zh-CN/search', '_blank')">
+                        <span>脚本猫</span>
+                    </button>
+                
+                    <button class="bookmark-btn" onclick="window.open('https://home.greasyfork.org.cn/zh-hans', '_blank')">
+                        <span>镜像站1</span>
+                    </button>
+                
+                    <button class="bookmark-btn" onclick="window.open('https://greasyfork-proxy.github.io/', '_blank')">
+                        <span>长期地址</span>
+                    </button>
+                
+            </div>
+            
+            <div class="special-buttons">
+                
+                    <button class="special-btn" style="background: linear-gradient(135deg, #ff9800, #ef6c00);color: #ffffff;width: 165px; height: 30px; font-size: 16px;" onclick="window.open('https://steampp.net/', '_blank')">
+                        Watt Toolkit加速器
+                    </button>
+                
+                    <button class="special-btn" style="background: linear-gradient(135deg, #4caf50, #2e7d32);color: #ffffff;width: 120px; height: 30px; font-size: 16px;" onclick="window.open('https://github.com/fishcpy/greasyfork', '_blank')">
+                        Github项目
+                    </button>
+                
+            </div>
+            
+            <div class="explanation">
+                <h3>说明</h3>
+                <p>Greasy Fork镜像网站导航页面</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
